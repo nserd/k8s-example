@@ -12,9 +12,16 @@ spec:
       labels:
         app: kube-flask-app1
     spec:
+      volumes:
+      - name: logs-storage
+        persistentVolumeClaim:
+          claimName: flask-app1-pvc
       containers:
       - name: kube-flask-app1
-        image: nserd/flask-app1:v2
+        image: nserd/flask-app1:v3
+        volumeMounts:
+          - mountPath: "/flask-app/logs"
+            name: logs-storage
         ports:
         - containerPort: 5000
           protocol: TCP

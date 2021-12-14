@@ -1,0 +1,29 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: flask-app1-pv
+  labels:
+    name: flask-app1-volume
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/var/log/flask"
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: flask-app1-pvc
+spec:
+  storageClassName: manual
+  selector:
+    matchLabels:
+      name: flask-app1-volume
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
