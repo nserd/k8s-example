@@ -14,8 +14,36 @@ spec:
     spec:
       containers:
       - name: kube-flask-app1
-        image: nserd/flask-app1:v1
+        image: nserd/flask-app1:v2
         ports:
         - containerPort: 5000
           protocol: TCP
+        env:
+          - name: "POD_IP"
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP
+          - name: "LOG_LEVEL"
+            value: "DEBUG"
+          - name: "DB_HOST"
+            valueFrom:
+              configMapKeyRef:
+                name: db-config
+                key: DB_HOST
+          - name: "DB_USER"
+            valueFrom:
+              configMapKeyRef:
+                name: db-config
+                key: DB_USER
+          - name: "DB_PASS"
+            valueFrom:
+              secretKeyRef:
+                name: dbpass
+                key: password
+          - name: "API_KEY"
+            valueFrom:
+              secretKeyRef:
+                name: apikey
+                key: key
+        
 

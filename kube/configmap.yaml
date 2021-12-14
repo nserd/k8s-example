@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-config
+  namespace: default
+data:
+  DB_HOST: "111.111.111"
+  DB_USER: "dbuser"
