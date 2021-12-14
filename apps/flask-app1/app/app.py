@@ -4,6 +4,7 @@ import datetime
 
 app = Flask(__name__)
 app.config.from_pyfile('env.py')
+app.config.from_pyfile('log.py')
 
 def getEnvString():
     return ("<b>Environment variables:</b><br>" +
@@ -16,6 +17,7 @@ def getEnvString():
 
 @app.route("/")
 def hello():
+    app.logger.info('[Pod: ' + str(app.config.get("POD_IP")) + '] ' + 'Processing default request.')
     return "<h1>Hello from flask-app 1!</h1><br>" + getEnvString()
 
 @app.route("/date")
