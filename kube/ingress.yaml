@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: web
+  namespace: default
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /flask1(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: flask1-svc
+            port:
+              number: 80
+      - path: /flask2(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: flask2-svc
+            port:
+              number: 80

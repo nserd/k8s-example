@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kube-flask-app2
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: kube-flask-app2
+  template:
+    metadata:
+      labels:
+        app: kube-flask-app2
+    spec:
+      containers:
+      - name: kube-flask-app2
+        image: nserd/flask-app2:v1
+        ports:
+        - containerPort: 5000
+          protocol: TCP
+
